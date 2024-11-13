@@ -3,6 +3,7 @@ import chokidar from 'chokidar';
 import matter from 'gray-matter';
 import fs from 'node:fs';
 import path from "node:path";
+import {format} from "date-fns";
 
 
 const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -21,7 +22,7 @@ function ensureField(filePath) {
         }
 
         if (!data.date) {
-            data.date = new Date().toISOString();
+            data.date = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssXXX");
             isUpdated = true
         }
 

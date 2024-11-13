@@ -1,18 +1,19 @@
 'use client'
 import Link from "next/link";
-import {formatDistance, subDays} from "date-fns";
+import {formatDistance} from "date-fns";
+import {zhCN} from 'date-fns/locale';
+
 
 const PostItem = ({post}) => {
-
     return (
-        <li className={'list-none relative hover:bg-gray-100'}>
+        <li className={'list-none relative hover:bg-gray-100 transition-colors'}>
             <Link className={'absolute z-[2] inset-0'} href={'/post/' + post.id}/>
             <article className={'p-6 border-b'}>
-                <h2 className={'font-semibold text-xl text-gray-800'}>{post.title}</h2>
-                {post.desc && <p className={'text-slate-500 text-sm mt-2'}>{post.desc}</p>}
-                <div className={'flex items-center text-sm mt-2 text-neutral-400'}>
+                <h2 className={'text-xl'}>{post.title}</h2>
+                {post.desc && <p className={'text-neutral-400 text-sm mt-2'}>{post.desc}</p>}
+                <div className={'flex items-center text-sm mt-3 text-gray-500'}>
                     <time
-                        dateTime={post.date}>{formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true })}</time>
+                        dateTime={post.date}>{formatDistance(new Date(), post.date, {locale: zhCN})}</time>
                     {post.category && (
                         post.category.map((category, index) => (
                             <Link href={'/category/' + category}

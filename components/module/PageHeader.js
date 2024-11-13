@@ -18,12 +18,12 @@ const PageHeader = ({title,secondary, children, hideBar}) => {
                 </div>
             )}
             <div className={cn(
-                'flex flex-col justify-center items-center p-6 min-h-[200px] border-b',
+                'relative flex flex-col justify-center items-center p-6 min-h-[200px] border-b',
                 !hideBar && '-mt-[54px]'
             )}>
-                <div className={'text-3xl font-bold text-gray-800'}>{title}</div>
+                <div className={'text-2xl'}>{title}</div>
                 {secondary && (
-                    <div className={'mt-3 text-sm text-gray-500'}>{secondary}</div>
+                    <div className={'mt-3 text-gray-500'}>{secondary}</div>
                 )}
                 {children}
             </div>

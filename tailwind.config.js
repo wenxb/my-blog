@@ -1,5 +1,6 @@
 import animate from "tailwindcss-animate"
 import typography from "@tailwindcss/typography"
+import {pxToRem} from "./utils/style";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -57,6 +58,12 @@ export default {
                     '4': 'hsl(var(--chart-4))',
                     '5': 'hsl(var(--chart-5))'
                 }
+            },
+            fontSize:{
+                base: pxToRem(15),
+                sm: pxToRem(13),
+                lg: pxToRem(17),
+                xl: pxToRem(19),
             }
         }
     },

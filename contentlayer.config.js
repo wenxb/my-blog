@@ -23,11 +23,14 @@ export const Post = defineDocumentType(() => ({
         draft: {type: 'boolean', default: false},
         tags: {type: 'list',of: { type: 'string' }},
         date: {type: 'date', required: true},
+        id: {type: 'string', required: true},
     },
     computedFields:{
         id: {
             type: 'string',
-            resolve: (doc) => doc.id.trim(),
+            resolve: (doc) => {
+                return doc.id?.trim()
+            },
         },
     }
 }))

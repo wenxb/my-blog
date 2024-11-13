@@ -1,8 +1,10 @@
 import "@/styles/index.scss"
 import {ThemeProvider} from "@/lib/theme-provider";
 import useConfig from "@/lib/hook/useConfig";
+import {TooltipProvider} from "@/components/ui/tooltip";
+import {Toaster} from "@/components/ui/toaster";
 
-export async function generateMetadata({params}) {
+export async function generateMetadata() {
     const config = useConfig()
     return {
         title: config.site.title,
@@ -28,7 +30,10 @@ export default function RootLayout({children}) {
             enableSystem
             disableTransitionOnChange
         >
-            {children}
+            <TooltipProvider>
+                {children}
+            </TooltipProvider>
+            <Toaster />
         </ThemeProvider>
         </body>
         </html>

@@ -10,7 +10,7 @@ export function generateStaticParams() {
     const uniqueCategories = [...new Set(categories)].filter(c => c !== undefined);
 
     return uniqueCategories.map((c) => ({
-        name: encodeURIComponent(c),
+        name: encodeURIComponent(c.trim()),
     }));
 }
 
@@ -22,9 +22,7 @@ const Page = ({params}) => {
         <MainColumn>
             <PageHeader title={name}></PageHeader>
             <div>
-                <PostList data={posts}>
-
-                </PostList>
+                <PostList data={posts}></PostList>
             </div>
         </MainColumn>
     );

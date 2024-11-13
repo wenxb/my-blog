@@ -4,6 +4,24 @@ import {allYmls} from 'contentlayer/generated'
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
 
+const ToolItem = ({tool, parentPath}) => {
+
+    return (
+        <li>
+            <Link href={`/tools/${parentPath}/${tool.path}`}
+                  className={'flex p-2 rounded-2xl hover:bg-gray-100'}>
+                <Avatar className={'rounded-xl border w-12 h-12 bg-white'}>
+                    <AvatarImage src={tool.icon} alt=""/>
+                </Avatar>
+                <div className={'ml-2'}>
+                    <div className={'font-semibold'}>{tool.name}</div>
+                    <div className={'text-xs mt-1 text-neutral-400 line-clamp-1'}>{tool.desc}</div>
+                </div>
+            </Link>
+        </li>
+    )
+}
+
 const Page = () => {
     const tools = allYmls.filter(t => t._raw.flattenedPath === 'data/tools')
 
@@ -15,22 +33,11 @@ const Page = () => {
                 {
                     tools[0].data.map(group => (
                         <div key={group.key}>
-                            <div className={'text-xl font-semibold my-4'}>{group.title}</div>
-                            <ul className={'grid grid-cols-2 gap-6'}>
+                            <div className={'text-xl font-semibold mt-6 mb-4'}>{group.title}</div>
+                            <ul className={'grid grid-cols-2 gap-4 -mx-2'}>
                                 {
                                     group.tools.map(tool => (
-                                        <li key={tool.path}>
-                                            <Link href={`/tools/${group.key}/${tool.path}`}
-                                                  className={'flex py-2 border-b-2 hover:border-blue-500'}>
-                                                <Avatar className={'rounded-lg border w-11 h-11'}>
-                                                    <AvatarImage src={tool.icon} alt=""/>
-                                                </Avatar>
-                                                <div className={'ml-2'}>
-                                                    <div>{tool.name}</div>
-                                                    <div className={'text-xs mt-0.5 text-neutral-400'}>{tool.desc}</div>
-                                                </div>
-                                            </Link>
-                                        </li>
+                                        <ToolItem parentPath={group.key} key={tool.path} tool={tool}/>
                                     ))
                                 }
                             </ul>
