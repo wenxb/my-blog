@@ -1,6 +1,7 @@
 import React from 'react';
 import SideTop from "@/components/sidebar/SideTop";
 import MenuContent from "@/components/sidebar/MenuContent";
+import SideBottom from "@/components/sidebar/SideBottom";
 
 const SideMenu = () => {
     return (
@@ -10,6 +11,10 @@ const SideMenu = () => {
                     <SideTop/>
                     <div className={'py-2 -ml-4 w-full'}>
                         <MenuContent/>
+                    </div>
+                    <div className={'flex-1'}></div>
+                    <div>
+                        <SideBottom/>
                     </div>
                 </div>
             </div>

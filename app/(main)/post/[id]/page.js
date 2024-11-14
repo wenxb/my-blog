@@ -50,8 +50,10 @@ export default async function PostPage({params}) {
 
     return (
         <MainColumn>
-            <PageHeader title={post.title}>
-                <div className={'flex items-center mt-3 text-gray-500'}>
+            <PageHeader title={post.title} footer={(
+                <BottomBlock config={config} id={post.id}/>
+            )}>
+                <div className={'flex items-center text-gray-500'}>
                     <time dateTime={post.date}>{format(post.date, 'yyyy-MM-dd HH:mm:ss')}</time>
                     {post.category && (
                         post.category.map((category, index) => (
@@ -61,7 +63,6 @@ export default async function PostPage({params}) {
                         ))
                     )}
                 </div>
-                <BottomBlock config={config} id={post.id}/>
             </PageHeader>
             <article className="py-6 px-6 flex-grow prose prose-pre:p-0 prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
                 <Mdx code={post.body.code}/>

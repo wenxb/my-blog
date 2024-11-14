@@ -31,10 +31,10 @@ const HeaderDesc = async () => {
     return (
         <>
             {(homeDesc.type === 'api' && text) && (
-                <p className={'mt-2 text-gray-500'}>{text}</p>
+                <p className={'text-gray-500'}>{text}</p>
             )}
             {homeDesc.type === 'text' && (
-                <TypicalText className={'mt-2'} text={homeDesc.text}/>
+                <TypicalText text={homeDesc.text}/>
             )}
         </>
     );

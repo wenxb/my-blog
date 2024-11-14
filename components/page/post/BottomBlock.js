@@ -27,11 +27,11 @@ const BottomBlock = ({config, id}) => {
     }
 
     return (
-        <div className={'flex items-center w-full absolute bottom-0 left-0 p-3'}>
+        <div className={'flex items-center justify-end p-2'}>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button onClick={()=>handleClick('copyLick')} className={'rounded-full text-gray-500'} variant={'ghost'} size={'icon'}>
-                        <CopyIcon/>
+                        <CopyIcon className={'text-base'}/>
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent>

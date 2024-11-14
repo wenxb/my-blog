@@ -13,11 +13,11 @@ const Page = () => {
             <PageHeader title={'所有分类'} hideBar
                         secondary={uniqueCategories.length > 0 ? `${uniqueCategories.length}个分类` : '还没有分类'}></PageHeader>
             <div className={'p-6 flex flex-col items-center'}>
-                <ul className={'flex flex-wrap gap-6 py-6'}>
+                <ul className={'flex flex-wrap gap-2 py-6'}>
                     {
                         uniqueCategories.map((category, index) => (
                             <li key={index}>
-                                <Link className={'text-xl border-b-2 hover:border-blue-500 pb-0.5'}
+                                <Link className={'text-xl px-6 py-3 rounded-xl transition-colors hover:bg-gray-100'}
                                       href={'/category/' + category}>
                                     {category}
                                 </Link>
