@@ -15,8 +15,12 @@ const Page = ({searchParams}) => {
     }
     return (
         <MainColumn>
-            <PageHeader footer={<SearchTabs/>}>
-                <SearchBlock onSearch={onSearch} defaultValue={word ?? ""}/>
+            <PageHeader barSlot={(
+                <div className={'font-semibold text-xl'}>搜索</div>
+            )} footer={<SearchTabs/>}>
+                <div className={'py-2 w-full flex justify-center'}>
+                    <SearchBlock onSearch={onSearch} defaultValue={word ?? ""}/>
+                </div>
             </PageHeader>
             search
         </MainColumn>

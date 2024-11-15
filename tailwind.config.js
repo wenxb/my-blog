@@ -1,6 +1,6 @@
 import animate from "tailwindcss-animate"
 import typography from "@tailwindcss/typography"
-import {pxToRem} from "./utils/style";
+import {pxToRem} from "./lib/style";
 
 /** @type {import('tailwindcss').Config} */
 export default {

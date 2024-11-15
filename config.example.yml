@@ -33,3 +33,5 @@ page:
       api: 'https://v1.hitokoto.cn?c=c&encode=json'
       text:
         - "人类的悲欢并不相通，我只是觉得他们吵闹"
+music:
+  cookie: "xxx"

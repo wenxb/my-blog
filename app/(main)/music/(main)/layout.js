@@ -12,7 +12,9 @@ const Layout = ({children}) => {
                 )}>
                     <HomeSearch/>
                 </PageHeader>
-                {children}
+                <div className={'pb-10'}>
+                    {children}
+                </div>
             </MainColumn>
         </>
     );
