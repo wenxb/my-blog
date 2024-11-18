@@ -5,12 +5,11 @@ import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
 
 const ToolItem = ({tool, parentPath}) => {
-
     return (
         <li>
             <Link href={`/tools/${parentPath}/${tool.path}`}
-                  className={'flex p-2 rounded-2xl hover:bg-gray-100'}>
-                <Avatar className={'rounded-xl border w-12 h-12 bg-white'}>
+                  className={'flex p-2 rounded-2xl hover:bg-accent'}>
+                <Avatar className={'rounded-xl border w-12 h-12 bg-background dark:bg-foreground'}>
                     <AvatarImage src={tool.icon} alt=""/>
                 </Avatar>
                 <div className={'ml-2'}>

@@ -1,28 +1,40 @@
+"use client"
 import MainColumn from "@/components/module/MainColumn";
 import PageHeader from "@/components/module/PageHeader";
-import MusicList from "@/components/lists/MusicList";
-import {Button} from "@/components/ui/button";
-import {PlayIcon} from "lucide-react";
+import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
+import PlayListHeader from "@/components/page/music/PlayListHeader";
+import PlayListBody from "@/components/page/music/PlayListBody";
+import {playAllSongs} from "@/lib/musicPlayer";
+import {notFound} from "next/navigation";
 
-const Page = () => {
+const limit = 200
+const Page = ({params}) => {
+    const {id} = params;
+    const {data: detailData, isLoading: detailLoading} = useSWR(`/api/music/playlistDetail?id=${id}`)
+    const {
+        data: songsData,
+        isLoading: songsLoading,
+        size,
+        setSize,
+        error
+    } = useSWRInfinite(index => `/api/music/playlistSongs?id=${id}&offset=${index * limit}&limit=${limit}`)
+
+    if(error) {
+        notFound()
+    }
+
+    const songs = songsData ? [].concat(...songsData) : [];
+    const isLoadingMore =
+        songsLoading || (size > 0 && songsData && typeof songsData[size - 1] === "undefined");
+
     return (
         <MainColumn>
             <PageHeader>
-                <div className={'flex flex-grow w-full justify-start items-center -mt-4'}>
-                    <div className={'w-1/4 rounded-xl overflow-hidden border aspect-square'}>
-                        <img className={'w-full h-full object-cover'} src="https://p1.music.126.net/Bb50pyrAJzR3ZsjxILnO6A==/109951169278248355.jpg?param=100y100" alt=""/>
-                    </div>
-                    <div className={'flex flex-col justify-between h-full ml-4 flex-1'}>
-                        <div className={'text-2xl font-semibold'}>歌单名称</div>
-                        <div className={'text-gray-500 my-1'}>歌单介绍</div>
-                        <p className={'text-neutral-400 text-sm'}>歌曲数：32</p>
-                        <div className={'mt-6'}>
-                            <Button className={'rounded-full'}><PlayIcon className={'fill-white text-lg stroke-0'}/>播放全部</Button>
-                        </div>
-                    </div>
-                </div>
+                <PlayListHeader onPlayAll={() => playAllSongs(songs)} loading={detailLoading} data={detailData}/>
             </PageHeader>
-            <MusicList/>
+            <PlayListBody onLoadMore={() => setSize(size + 1)} isLoadingMore={isLoadingMore} songs={songs}
+                          loading={songsLoading} count={detailData?.songsCount}/>
         </MainColumn>
     );
 };

@@ -6,12 +6,19 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     webpack: (config, {isServer, dev}) => {
-        const postPath = "./content/post"
+        // 开启 WebAssembly 支持
+        config.experiments = {
+            layers: true,
+            asyncWebAssembly: true,
+        };
 
+        if (!isServer) {
+            config.output.environment = { ...config.output.environment, asyncFunction: true };
+        }
+
+        const postPath = "./content/post"
         if (dev) {
-            if (isServer) {
-                startFileWatcher(postPath)
-            }
+            startFileWatcher(postPath)
         } else {
             initField(postPath)
         }
@@ -19,5 +26,6 @@ const nextConfig = {
         return config;
     }
 }
+
 
 export default withContentlayer(nextConfig)

@@ -3,6 +3,7 @@ import {Button} from "@/components/ui/button";
 import {MusicIcon} from "lucide-react";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import Link from "next/link";
+import {ModeToggle} from "@/components/module/ModeToggle";
 
 const SideBottom = () => {
     return (
@@ -17,6 +18,7 @@ const SideBottom = () => {
                 </TooltipTrigger>
                 <TooltipContent>音乐</TooltipContent>
             </Tooltip>
+            <ModeToggle/>
         </div>
     );
 };

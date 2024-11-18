@@ -7,8 +7,9 @@ export const revalidate = 120
 export async function GET() {
     const resList = []
     const dayRes = await recommend_songs()
+    const radarId = 3136952023
     const radarDetail = await playlist_detail({
-        id: 3136952023
+        id: radarId
     })
 
     if (dayRes.body) {
@@ -27,9 +28,10 @@ export async function GET() {
         const songs = radarDetail.body?.playlist?.tracks
         resList.push({
             title: '私人雷达',
-            desc: radarDetail.body?.playlist?.name.replace('|私人雷达', '') || "",
+            desc: `今天《${songs[0].name}》爱不释耳`,
             cover: getCoverUrl(songs[0]),
             type: 'radar',
+            id: radarId
         })
     }
 

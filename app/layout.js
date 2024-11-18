@@ -5,6 +5,7 @@ import {TooltipProvider} from "@/components/ui/tooltip";
 import {Toaster} from "@/components/ui/toaster";
 import ReduxProvider from "@/lib/ReduxProvider";
 import {SWRProvider} from "@/lib/swr-provider";
+import PersistProvider from "@/lib/PersistProvider";
 
 export async function generateMetadata() {
     const config = useConfig()
@@ -28,17 +29,19 @@ export default function RootLayout({children}) {
         <body>
         <SWRProvider>
             <ReduxProvider>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <TooltipProvider>
-                        {children}
-                    </TooltipProvider>
-                    <Toaster/>
-                </ThemeProvider>
+                <PersistProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <TooltipProvider>
+                            {children}
+                        </TooltipProvider>
+                        <Toaster/>
+                    </ThemeProvider>
+                </PersistProvider>
             </ReduxProvider>
         </SWRProvider>
         </body>

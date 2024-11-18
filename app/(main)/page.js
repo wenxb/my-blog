@@ -4,6 +4,7 @@ import useConfig from "@/lib/hook/useConfig";
 import HeaderDesc from "@/components/page/home/HeaderDesc";
 import PostList from "@/components/lists/PostList";
 import {allPosts} from "contentlayer/generated";
+import SideRightWrap from "@/components/sideRight/SideRightWrap";
 
 export default async function Home() {
     const config = useConfig()
@@ -13,13 +14,16 @@ export default async function Home() {
     const title = config.page.home.title ?? config.site.title
 
     return (
-        <MainColumn>
-            <PageHeader hideBar title={title}>
-                <HeaderDesc/>
-            </PageHeader>
-            <div>
-                <PostList data={posts}/>
-            </div>
-        </MainColumn>
+        <>
+            <MainColumn>
+                <PageHeader hideBar title={title}>
+                    <HeaderDesc/>
+                </PageHeader>
+                <div>
+                    <PostList data={posts}/>
+                </div>
+            </MainColumn>
+            <SideRightWrap/>
+        </>
     )
 }

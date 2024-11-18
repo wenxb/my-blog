@@ -6,12 +6,12 @@ import {zhCN} from 'date-fns/locale';
 
 const PostItem = ({post}) => {
     return (
-        <li className={'list-none relative hover:bg-gray-100 transition-colors'}>
+        <li className={'list-none relative hover:bg-accent transition-colors'}>
             <Link className={'absolute z-[2] inset-0'} href={'/post/' + post.id}/>
             <article className={'p-6 border-b'}>
                 <h2 className={'text-xl'}>{post.title}</h2>
-                {post.desc && <p className={'text-neutral-400 text-sm mt-2'}>{post.desc}</p>}
-                <div className={'flex items-center text-sm mt-3 text-gray-500'}>
+                {post.desc && <p className={'text-foreground/60 text-sm mt-2'}>{post.desc}</p>}
+                <div className={'flex items-center text-sm mt-3 text-foreground/60'}>
                     <time
                         dateTime={post.date}>{formatDistance(new Date(), post.date, {locale: zhCN})}</time>
                     {post.category && (

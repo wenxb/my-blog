@@ -15,7 +15,7 @@ const HeaderDesc = async () => {
                 }
             }).then((res) => res.json())
             if (json?.hitokoto) {
-                text = json.hitokoto
+                text = `"${json.hitokoto}"`
             }
             if (json?.from) {
                 text += ' - ' + json.from
@@ -31,10 +31,10 @@ const HeaderDesc = async () => {
     return (
         <>
             {(homeDesc.type === 'api' && text) && (
-                <p className={'text-gray-500'}>{text}</p>
+                <p className={'text-foreground/60'}>{text}</p>
             )}
             {homeDesc.type === 'text' && (
-                <TypicalText text={homeDesc.text}/>
+                <TypicalText className={'text-foreground/60'} text={homeDesc.text}/>
             )}
         </>
     );

@@ -10,10 +10,10 @@ const MenuItem = ({children, icon: Icon, href, ...props}) => {
 
     return (
         <li>
-            <Link className={cn('group flex items-center rounded-full px-4 h-14 hover:bg-gray-100 w-full transition-colors')}
+            <Link className={cn('group flex items-center rounded-full px-4 h-14 hover:bg-accent w-full transition-colors')}
                   href={href} {...props}>
-                <Icon className={cn('text-[23px] transition-transform text-gray-800', isActive && 'stroke-[2.5] text-gray-900')}/>
-                <span className={cn('text-xl ml-4 text-gray-800', isActive && 'font-bold text-gray-900')}>{children}</span>
+                <Icon className={cn('text-2xl transition-transform text-foreground/80', isActive && 'stroke-[2.5] text-foreground')}/>
+                <span className={cn('text-xl ml-4 text-foreground/80', isActive && 'font-bold text-foreground')}>{children}</span>
             </Link>
         </li>
     )

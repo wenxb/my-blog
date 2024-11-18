@@ -14,7 +14,7 @@ const Page = () => {
     return (
         <MainColumn>
             <PageHeader hideBar title={page.title} secondary={page?.desc}></PageHeader>
-            <article className={'prose max-w-full prose-blue p-6'}>
+            <article className={'prose max-w-full prose-blue p-6 dark:prose-invert'}>
                 <Mdx code={page.body.code}/>
             </article>
         </MainColumn>

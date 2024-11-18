@@ -1,10 +1,10 @@
 import {getCoverUrl} from "@/lib/music/util";
-import {user_account, user_playlist} from "@/lib/music/api/user";
+import {user_playlist} from "@/lib/music/api/user";
+import {getGlobalMUID} from "@/lib/music";
 
 export const revalidate = 120
 export async function GET() {
-    const profile = await user_account()
-    const userId = profile.body?.profile?.userId
+    const userId = await getGlobalMUID()
 
     const playlistRes = await user_playlist({
         uid: userId,
@@ -19,7 +19,6 @@ export async function GET() {
     }
     const userPlaylist = playlistRes.body?.playlist
     if (userPlaylist?.length) {
-        likeObj.title = userPlaylist[0].name
         likeObj.cover = userPlaylist[0].coverImgUrl
         likeObj.id = userPlaylist[0].id
     }

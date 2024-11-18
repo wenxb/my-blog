@@ -64,12 +64,16 @@ export default {
                 sm: pxToRem(13),
                 lg: pxToRem(17),
                 xl: pxToRem(19),
+                '2xl': pxToRem(23),
             }
         }
     },
     plugins: [
         animate,
-		typography
+		typography,
+        function ({ addVariant }) {
+            addVariant('not-last-child', '&:not(:last-child)');
+        }
 	],
 }
 
