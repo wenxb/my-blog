@@ -15,13 +15,10 @@ y-blog是由 [nextjs](https://nextjs.org/) 开发的个人博客网站，使用`
 
 如果需要使用音乐功能，需进行以下配置：
 
-首次运行下面的命令后，会在`keys/`目录下生成`public.pem`（公钥）和`private.pem`（私钥）两个文件，或者你可以自己手动生成
+首次运行下面的命令后，会在`keys/`目录下生成`public.pem`（公钥）和`private.pem`（私钥）两个文件，将根目录`.env.example`文件重命名为`.env`
 
-将根目录`.env.example`文件重命名为`.env`
+复制**公钥**文件的内容替换到`NEXT_PUBLIC_PUB_KEY`， 复制**私钥**文件的内容替换到`PRIVATE_KEY`
 
-复制**公钥**文件的内容替换到`NEXT_PUBLIC_PUB_KEY`
-
-复制**私钥**文件的内容替换到`PRIVATE_KEY`
 
 ```bash
 npm run dev
