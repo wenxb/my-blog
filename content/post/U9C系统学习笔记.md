@@ -1,6 +1,5 @@
 ---
 title: U9C系统学习笔记
-slug: '28'
 tags:
   - U9C
 category:

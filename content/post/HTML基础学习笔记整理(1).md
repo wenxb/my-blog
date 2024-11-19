@@ -28,11 +28,11 @@ id: xYZBefVVG8NcBObUSr4Om3
 
 ## HTML的基本骨架
 
-HTML 有自己的语言语法骨架格式({% span red, 必须严格遵守 %})：
+HTML 有自己的语言语法骨架格式，必须严格遵守：
 
 ```html
-<html>   
-    <head>     
+<html>
+    <head>
         <title></title>
     </head>
     <body>
@@ -77,8 +77,8 @@ HTML 有自己的语言语法骨架格式({% span red, 必须严格遵守 %})：
 1. 嵌套
 
    ```
-   <head>  
-   	<title> </title> 
+   <head>
+   	<title> </title>
    </head>
    ```
 

@@ -27,7 +27,7 @@ or:
 
 安装好了之后，接下来需要配置jdk的环境变量，也就是在你系统上的一个变量，以便运行时用到jdk
 
-{% folding macOS配置环境变量 %}
+macOS配置环境变量
 
 **将下载好的安装包打开安装**
 
@@ -71,9 +71,8 @@ source .bash_profile
 
 在终端输入：`java -version` 如果出现版本号则代表安装成功
 
-{% endfolding %}
 
-{% folding windows配置环境变量 %}
+windows配置环境变量
 
 windows系统下配置jdk环境变量会有所不同
 
@@ -123,7 +122,6 @@ windows系统下配置jdk环境变量会有所不同
 
 ![img](https://pic.juyovo.com/picture/img/20210518160129.png)
 
-{% endfolding %}
 
 JDK安装完成之后，现在来安装Android studio
 

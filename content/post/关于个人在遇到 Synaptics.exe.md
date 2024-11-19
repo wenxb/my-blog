@@ -1,6 +1,5 @@
 ---
 title: 关于个人在遇到 Synaptics.exe 蠕虫病毒的解决办法
-slug: '23'
 tags:
   - 病毒
 category:
