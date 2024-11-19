@@ -1,14 +1,14 @@
 import {notFound} from "next/navigation"
 import {allPosts} from "contentlayer/generated"
-import {Mdx} from "@/components/common/mdx-components";
 import MainColumn from "@/components/module/MainColumn";
 import {format} from "date-fns";
 import Link from "next/link";
 import PageHeader from "@/components/module/PageHeader";
 import useConfig from "@/lib/hook/useConfig";
-import "@/styles/github-dark.min.css"
 import BottomBlock from "@/components/page/post/BottomBlock";
 import SideRightWrap from "@/components/sideRight/SideRightWrap";
+import MarkdownRenderer from "@/components/common/MarkdownRenderer";
+import TocExtractor from "@/components/common/TocExtractor";
 
 async function getPostFromParams(params) {
     let id = params.id
@@ -68,8 +68,8 @@ export default async function PostPage({params}) {
                     </div>
                 </PageHeader>
                 <article
-                    className="py-6 px-6 flex-grow prose prose-pre:p-0 prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
-                    <Mdx code={post.body.code}/>
+                    className="py-6 px-6 flex-grow prose prose-pre:p-0 prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
+                    <MarkdownRenderer md={post.body.raw}/>
                 </article>
                 <div className={'border-t flex flex-col gap-2 p-6 mt-6'}>
                     <div><span className={'text-foreground/60'}>标题：</span>{post.title}</div>
@@ -94,7 +94,11 @@ export default async function PostPage({params}) {
                     </div>
                 </div>
             </MainColumn>
-            <SideRightWrap/>
+            <SideRightWrap stickyWrap={
+                <>
+                    <TocExtractor md={post.body.raw}/>
+                </>
+            }/>
         </>
     )
 }
