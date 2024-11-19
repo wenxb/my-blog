@@ -24,6 +24,8 @@ export async function generateMetadata() {
 }
 
 export default function RootLayout({children}) {
+    const config = useConfig()
+
     return (
         <html lang="zh" suppressHydrationWarning>
         <body>
@@ -32,7 +34,7 @@ export default function RootLayout({children}) {
                 <PersistProvider>
                     <ThemeProvider
                         attribute="class"
-                        defaultTheme="system"
+                        defaultTheme={config.site.themeMode || 'system'}
                         enableSystem
                         disableTransitionOnChange
                     >

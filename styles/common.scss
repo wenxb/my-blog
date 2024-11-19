@@ -31,6 +31,7 @@
     --amll-lyric-view-color: #161619;
     --amll-lyric-view-hover-bg-color: rgba(255, 255, 255, 0);
   }
+
   .dark {
     --background: 240 10% 12%;
     --foreground: 0 0% 98%;
@@ -59,16 +60,29 @@
     --amll-lyric-view-color: #ffffff;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground text-base;
   }
 }
 
-.lucide, .yw-icon{
+@layer utilities {
+  .prose {
+    .contains-task-list {
+      @apply pl-0;
+      li.task-list-item {
+        @apply list-none pl-0;
+      }
+    }
+  }
+}
+
+.lucide, .yw-icon {
   width: 1em;
   height: 1em;
 }
