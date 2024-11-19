@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/keys.js && next dev -p 10001",
+    "dev": "node scripts/keys.js && next dev -p 9001",
     "build": "next build",
     "preview": "next build && next start",
     "start": "next start",

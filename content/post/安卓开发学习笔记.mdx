@@ -1,0 +1,120 @@
+---
+title: 安卓开发学习笔记
+category:
+  - 日志记录
+id: GpYAbyXe6geGpkikN320bO
+date: '2024-09-19T19:50:38+08:00'
+---
+
+**视图（View）**
+
+对齐方式：layout_gravity（当前视图相对于父容器）、gravity（指定下级视图）
+
+**线性布局**
+
+排列方式：默认 horizontal 水平方向
+
+orientation属性：horizontal水平方向（横着放），vertical：垂直方向（竖着放）
+
+**相对布局**
+
+![image-20240705111736318](https://pic.juyovo.com/images/137fa261f18a7922cdb1188dd425bc39.png)
+
+**网格布局**
+
+columnCount  列数，rowCount  行数
+
+**滚动视图**
+
+ScrollView： 上下滚动，HorizontalScrollView 左右滚动
+
+**按钮** Button
+
+`setOnClickLinstener` 单击
+
+`setOnLongClickLinstener` 长按【需要返回true或false（冒泡）】
+
+`setOnTouchLinstener` 双击
+
+`enabled` 禁用
+
+**图片** ImageView
+
+`ScaleType`  默认fitCenter
+
+![image-20240705144547359](https://pic.juyovo.com/images/2c1e2dcbd0422c6e149a890f3d1ef094.png)
+
+**图片按钮** （ImageButton）
+
+可以设置背景图、前景图、图片
+
+**同时展示文本与图像**
+
+![image-20240705145808951](https://pic.juyovo.com/images/7738ea1e1c4fc58ede11919f504cc6f0.png)
+
+**元数据**
+
+清单文件里面：使用 `meta-data[name, value]`标签，常用与存放第三方**token**
+
+读取：`Bundle bundle = getPackageManager().getActivityInfo(getComponentName(), PackageManager.GET_META_DATA).metaData`
+
+## Activity
+
+跳转activity：`startActivity(new Intent(源页面.this, 目标页面.class))`
+
+结束activity：`finish()`
+
+### 生命周期
+
+![image-20240705162003318](https://pic.juyovo.com/images/84051b8305053d30260c77c1d1aa61fc.png)
+
+## 启动模式
+
+**拒绝反复横跳**
+
+![image-20240705165319268](https://pic.juyovo.com/images/2e0d5c56461b0614d57e45a73437e8db.png)
+
+**登录成功不再跳回登录页面**
+
+![image-20240705165757352](https://pic.juyovo.com/images/32c50b1847886c946e9377593fd27f47.png)
+
+### Activity发送数据
+
+```java
+// 发送
+Bundle bundle = new Bundle();
+bundle.putString("key", "value");
+intent.putExtras(bundle);
+// or
+intent.putExtra("key", "value");
+
+// 接收
+Bundle bundle = getIntent().getExtras();
+String key = bundle.getString("key");
+```
+
+### Activity返回数据
+
+> 向上一个Activity返回数据
+
+```java
+// 新的跳转方法
+registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>())
+
+// 响应
+setResult(Activity.RESULT_OK, intent);
+```
+
+## Intent
+
+显式Intent：`intent.setClass()` / `intent.setComponent()`（new ComponentName(pkg, class)）
+
+隐式Intent：`setAction()`  只给出一个字符串进行匹配. `setData()`
+
+从配置文件获取字符串：`getString(R.string.xxx)`
+
+
+
+## 图形Drawable
+
+![image-20240708162324350](https://pic.juyovo.com/images/76eabceb91287a8b61ccb05483401ada.png)

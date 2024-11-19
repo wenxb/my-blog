@@ -1,0 +1,78 @@
+---
+title: 宝塔面板屏蔽、去除、解决强制绑定手机账号的四种方法
+tags:
+  - 服务器
+  - 宝塔
+category:
+  - 日志记录
+date: 2023-02-04T08:33:40.000Z
+image: null
+id: WZZIz3pvSb5WcwwXfiW8xK
+---
+
+> 原文链接:https://www.landafu.com/29559.html
+
+从7.4.5版本开始，宝塔安装后首页强制绑定手机号码，虽然没有关闭按钮，但其实只是一个弹窗，并且只在首页提示（不排除之后官方改成其他页面也弹窗），不想绑定的用户可以直接修改面板首页文件即可关闭！
+
+![e0b97-20210425214624.png](https://www.youngwen.com/upload/e0b97-20210425214624.png)
+
+
+
+今天就记录一下屏蔽、去除、解决宝塔面板强制绑定手机的这个方法。
+
+### **一、绕过宝塔强制绑定手机页面**
+
+浏览器地址后面添加/files跳转到宝塔文件管理页面，比如你的宝塔地址是1.2.3.4:8888，改成1.2.3.4:8888/files访问；然后定位到以下目录/www/server/panel/BTPanel/static/js
+**找到index.js文件，编辑，然后找到大概65行左右以下代码**
+
+```html
+if (bind_user == 'True') {
+show_force_bind();
+}
+```
+
+**全选代码**
+
+**复制**
+
+**将True改成其他比如REMOVED，最后保存，然后强制刷新下页面，就不会提示绑定手机了~**
+
+### **二、屏蔽宝塔强制绑定手机方法**
+
+打开SSH，可以直接命令一键修改，实现原理跟方法1相同
+
+```bash
+sed -i "s|bind_user == 'True'|bind_user == 'XXXX'|" /www/server/panel/BTPanel/static/js/index.js
+```
+
+**全选代码**
+
+**复制**
+
+如果需要恢复执行以下代码
+
+```bash
+sed -i "s|if (bind_user == 'REMOVED') {|if (bind_user == 'True') {|g" /www/server/panel/BTPanel/static/js/index.js
+```
+
+**全选代码**
+
+**复制**
+
+### **三、删除宝塔强制绑定手机js文件**
+
+```bash
+rm -f /www/server/panel/data/bind.pl
+```
+
+**全选代码**
+
+**复制**
+
+运行以上代码可以解除宝塔面板的强制绑定手机，运行完毕以后，请清除浏览器缓存并刷新宝塔面板！实在不会清理缓存的就用浏览器无痕模式！
+
+### **四、安装宝塔国际版无强制绑定**
+
+国际版是不会有强制绑定的要求的，而且和宝塔是一比一的相识，基本没有使用障碍。
+
+- 国际版地址：https://www.aapanel.com/

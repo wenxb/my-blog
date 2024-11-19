@@ -1,0 +1,44 @@
+---
+title: 宝塔网站批量迁移、一键迁移
+tags:
+  - 宝塔
+category:
+  - 日志记录
+date: 2023-02-04T09:11:00.000Z
+image: null
+id: siJfvmyZslCRS1CRx516z6
+---
+
+> 来源于：https://blog.csdn.net/qq_40430818/article/details/125235724
+
+### 场景  
+
+有两台装有宝塔的服务器，想要把A上面的网站迁移到B上面。
+
+### 1、配置迁入服务器B
+
+打开需要前迁入的服务器B的宝塔面板，点击“面板设置”，点击开启“API设置”，如果看不到密钥请重置，IP白名单里面填写需要迁出服务器的公网IP地址。
+![](https://pic.juyovo.com/picture/img/n1/202302041708697.png)
+
+### 2、配置迁出服务器A
+
+打开需要迁出数据的服务器A的宝塔面板，点击安装，“软件商店”在“宝塔插件”下面的“宝塔一键迁移API版本”，安装后点击设置。
+![](https://pic.juyovo.com/picture/img/n1/202302041708073.png)
+
+### 3、配置“宝塔一键迁移API版本”
+
+接收数据的面板地址（迁入数据服务器B的地址），接收数据的面板API（第一步B配置的密钥）
+![](https://pic.juyovo.com/picture/img/n1/202302041708640.png)
+
+### 4、环境检测
+
+环境兼容可用才可以下一步，否则按需求修改环境。
+![](https://pic.juyovo.com/picture/img/n1/202302041709300.png)
+
+### 5、选择需要迁移的数据，点击“一键迁移”
+
+![](https://pic.juyovo.com/picture/img/n1/202302041710279.png)
+
+### 6、迁移完成
+
+![](https://pic.juyovo.com/picture/img/n1/202302041710005.png)

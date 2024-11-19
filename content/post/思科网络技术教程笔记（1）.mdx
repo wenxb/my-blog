@@ -1,0 +1,323 @@
+---
+title: 思科网络技术教程笔记（1）
+tags:
+  - 思科
+category:
+  - 日志记录
+date: 2022-04-09T12:17:12.000Z
+image: 'https://pic.juyovo.com/picture/blog/202306220824279.png'
+id: MlqMcbA5q4lVk2o5mi0Oi5
+---
+
+> 如果对 vlan、三层交换机、网关、DNS、子网掩码、MAC地址 不清楚的同学，推荐阅读这篇文章
+> [一文讲懂什么是 vlan、三层交换机、网关、DNS、子网掩码、MAC地址](https://zhuanlan.zhihu.com/p/189590696)
+
+## 基本命令
+
+#### 模式切换
+
+用户模式： enable　——>　　特权模式：　　conf ——>　　全局控制模式
+
+全局控制模式： 　`end`、`exit`　——>　特权模式：　`disable`、`exit` ——>　　用户模式
+
+#### 配置主机名
+
+在全局模式下：
+
+```bash
+# hostname S1
+```
+
+#### 保护设备
+
+> 所有密码都在全局控制模式下所设置
+
+- 特权EXEC的密码
+
+```bash
+# enable secret class
+```
+
+- 用户EXEC的密码
+
+```bash
+# line console 0
+# password cisco
+# login
+# exit
+```
+
+- VTY线路的密码（VTY指虚拟终端 SSH\Telnet）
+
+```bash
+# line vty 0 15
+# password cisco
+# login
+# exit
+```
+
+- 加密明文密码
+
+> 刚刚设置的密码大多都是以明文的形式保存在配置文件，任何人如果访问了这些文件，就可以看到这些密码
+
+```bash
+# service password-encryption
+```
+
+- 标语消息
+
+```bash
+# banner motd 'warning'
+```
+
+- 保存配置文件
+  如何查看运行配置文件：
+
+```bash
+# show running-config
+```
+
+如何查看启动配置文件
+
+```bash
+# show startup-config
+```
+
+> 由于所做的配置只是暂存在内存中，重启后配置容易丢失，所以使用
+> `copy running-config startup-config` 来保存到启动配置文件中
+
+#### 配置IP地址
+
+> 开始之前你需要了解：
+> 每一台设备的IP地址都是`唯一`的
+> IP地址可以手动分配或者由DHCP自动分配
+
+一般PC电脑默认都是自动分配
+Windows可以在设置-网络和Internet-状态-属性看到相关信息
+
+不过思科作业基本都是手动分配，下面说说手动分配IP地址
+为交换机配置 vlan 的 ip 地址
+
+```bash
+# interface vlan 1
+# ip address 10.10.10.1 255.255.255.0
+# no shutdown
+```
+
+一定不要忘记最后 **no shutdown** 启动一下
+
+## 交换机
+
+#### 安全远程访问
+
+> 安全外壳（SSH）是一种提供远程设备的安全管理连接的协议。SSH应替代 Telnet 来管理连接。Telnet是一种较早的协议，使用的是不安全的明文传输。
+
+**一 配置SSH**
+
+- 验证是否支持SSH
+  `show ip ssh` 验证
+- 配置IP域
+  `ip domain-name youngwen.com`
+- 启用SSH 2
+
+> ssh1 存在安全风险，建议使用ssh2
+
+`ip ssh version2` 启用SSH V2
+
+- 生成 RSA 密钥对并启用
+
+```bash
+# crypto key generate rsa
+```
+
+> 提示：How many bits in the modulus [512]: `1024`
+> 这里是模拟长度，默认是512位，但是推荐较长的（如 1024 位或 2048 位）
+> 删除RSA密钥对使用 `crypto key zeroize rsa`
+
+- 用户身份验证
+  `username wenxb secret 123456`
+- 配置 vty 线路
+  使用 `transport input ssh` 线路启用 vty 线路上的SSH协议，将交换机限制为仅 SSH 链接
+  比如：
+
+```bash
+# line vty 0 15
+# transport input ssh
+# login local
+# end
+```
+
+- PC使用 SSH 连接交换机
+  `ssh -l wenxb 10.10.10.11`
+  之后输入密码即可
+
+#### 端口安全
+
+使用`switchport mode access`切换工作模式
+
+使用 `switchport port-security` 来启用端口安全
+
+1. 安全 MAC 地址类型
+
+   静态安全 MAC 地址：使用 switchport port-security mac-address *mac-address* 来手动配置MAC 地址。此方法的MAC地址存储在地址表中并添加到交换机的运行配置中
+
+   动态安全 MAC 地址：通过动态获取存储在地址表中，交换机重新启动时将被移除
+
+   粘性安全 MAC 地址：可以动态获取或者手动配置，存储到地址表并且保存到运行配置中
+
+2. 粘性安全 MAC 地址
+
+   启用粘性获取
+
+   `switchport port-security mac-address sticky`
+
+   手动添加地址
+
+   `switchport port-security mac-address sticky "mac-address"`
+
+   禁用粘性获取
+
+   `no switchport port-security mac-address sticky`
+
+3. 端口安全：违规模式
+
+   | 违规模式 | 转发流量 | 发出Syslog消息 | 显示错误消息 | 增加违规计数器 | 关闭端口 |
+   | -------- | -------- | -------------- | ------------ | -------------- | -------- |
+   | 保护     | 否       | 否             | 否           | 否             | 否       |
+   | 限制     | 否       | 是             | 否           | 是             | 是       |
+   | 关闭     | 否       | 否             | 否           | 是             | 是       |
+
+   配置命令模式
+
+   `switchport port-security violation {protect | restrict | shutdown}`
+
+   MAC地址最大数量
+
+   `switchport port-security maximum 10`
+
+4. 验证端口安全
+
+   在**特权模式**下显示端口安全设置 `show port-security interface`
+
+## VLAN
+
+### 显示端口的VLAN分配
+
+命令：`show vlan brief`
+
+VLAN的说明：
+
+1. 本征VLAN
+
+   本征VLAN分配给802.1Q中继端口，**TRUNK端口是交换机之间的链路，支持传输与多个VLAN关联的流量传输。**
+
+2. 数据VLAN
+
+   数据VLAN用于传送用户生成的流量。
+
+3. 管理VLAN
+
+   管理VLAN是用于访问交换机管理功能的VLAN。
+
+4. 语音VLAN
+
+   IP语音 （VoIP）需要单独的VLAN。
+
+### VLAN分配
+
+- 创建VLAN
+
+```bash
+# vlan 10 	##创建一个VLAN
+# vlan 10,20,30-40   ##创建多个VLAN
+```
+
+`no vlan 10` 删除VLAN10
+
+- 分配端口
+
+> 提示：使用**interdace range**可同时配置多个接口
+
+`switchport mode access` 切换为接入模式
+
+`switchport access vlan "vlan_id"` 将端口分配给VLAN
+
+`no switchport access vlan` 将端口改回默认VLAN1
+
+### VLAN中继
+
+`switchport mode trunk` 切换为中继模式
+
+`switchport trunk native vlan "*vlan_id*"` 指定本征VLAN
+
+`switchport trunk allowed vlan "vlan_id"` 指定允许通过的VLAN列表
+
+> 重置TRUNK:
+>
+> no switchport trunk allowed vlan 重置中继以允许所有VLAN
+>
+> no switchport trunk native vlan 重置本征VLAN为VLAN1
+
+> show interfaces f0/1 switchport 显示接口中继配置状态
+
+### 排除VLAN和中继故障
+
+根据问题解决问题，没什么问题吧_
+
+- 检验连接 `ping 172.17.10.10`
+- VLAN分配信息 `show vlan brief`
+- 端口获取的MAC地址 `show mac address-table interface f0/1`
+- 端口信息 `show interfaces f0/1 switchport`
+- TRUNK端口状态 `show interfaces trunk`
+
+### VLAN间路由
+
+传统VLAN间路由
+
+传统VLAN间路由效率低下，在交换网络中通常不再使用
+
+**重点：** 单臂路由
+
+> 传统vlan间路由使用物理接口，而单臂路由则采用子接口，节省端口
+
+在交换机上配置好VLAN之后，路由器上的配置：
+
+使用`interface 接口id.子接口id`配置子接口
+
+下一步，子接口必须使用`encapsulation dot1q "vlan_id" [native]`配置特定的VLAN 802.1Q TRUNK。仅为本征VLAN使用native选项
+
+接下来，使用`ip address ip_address subnet_mask `配置IPv4地址
+
+最后，启用物理接口！
+
+> 如果物理接口被禁用，**所有**子接口都会被禁用
+>
+> 开启方法： 进入物理端口，使用 **no shutdown** 来开启
+
+实例：
+
+```
+# interface g0/0.10
+# encapsulation dot1q 10
+# ip address 172.17.10.1 255.255.255.0
+# interface g0/0.30
+# encapsulation dot1q 30
+# ip address 172.17.30.1 255.255.255.0
+# exit
+# interface g0/0
+# no shutdown
+```
+
+验证子接口
+
+```
+show vlans
+```
+
+检查路由表
+
+```
+show ip route
+```
+
+> [接下篇：思科网络技术教程笔记（2）](https://www.youngwen.com/archives/28.html)
