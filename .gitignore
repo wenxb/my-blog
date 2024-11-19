@@ -44,6 +44,5 @@ next-env.d.ts
 # contentlayer
 .contentlayer
 
-config.yml
 /content/post/test/
 /keys/*
