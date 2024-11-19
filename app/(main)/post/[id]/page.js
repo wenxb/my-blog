@@ -68,7 +68,7 @@ export default async function PostPage({params}) {
                     </div>
                 </PageHeader>
                 <article
-                    className="py-6 px-6 flex-grow prose prose-pre:p-0 prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
+                    className="py-6 px-6 flex-grow prose prose-zinc prose-pre:p-0 prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
                     <MarkdownRenderer md={post.body.raw}/>
                 </article>
                 <div className={'border-t flex flex-col gap-2 p-6 mt-6'}>
