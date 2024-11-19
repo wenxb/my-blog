@@ -9,7 +9,7 @@ const PostPagination = ({page, count, pageSize}) => {
     }
 
     return (
-        <div className={'mt-6'}>
+        <div className={'my-6'}>
             <YPagination page={page} pageSize={pageSize} count={count}/>
         </div>
     );
