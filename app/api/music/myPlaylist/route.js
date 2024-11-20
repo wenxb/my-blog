@@ -19,7 +19,7 @@ export async function GET() {
     }
     const userPlaylist = playlistRes.body?.playlist
     if (userPlaylist?.length) {
-        likeObj.cover = userPlaylist[0].coverImgUrl
+        likeObj.cover = userPlaylist[0].coverImgUrl?.replace(/^http:/, "https:")
         likeObj.id = userPlaylist[0].id
     }
 

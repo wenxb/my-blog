@@ -1,7 +1,7 @@
 import {getCoverUrl} from "@/lib/music/util";
 import {recommend_resource} from "@/lib/music/api/recommend";
 
-export const revalidate = 120
+export const revalidate = 0
 
 export async function GET() {
     const res = await recommend_resource()

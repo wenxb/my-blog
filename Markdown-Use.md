@@ -104,6 +104,7 @@ print("Hello, World!")
 ```
 
 ## 9. 分割线
+
 使用三个或更多的 -、* 或 _ 创建分割线。
 
 ``` markdown
@@ -111,6 +112,7 @@ print("Hello, World!")
 ```
 
 ## 10. 任务列表
+
 在列表项前使用 [ ] 表示未完成任务，[x] 表示已完成任务。
 
 ``` markdown
@@ -119,8 +121,24 @@ print("Hello, World!")
 ```
 
 ## 11. 转义字符
+
 Markdown 中的特殊字符（如 *, _, # 等）可以用反斜杠 \ 进行转义。
 
 ``` markdown
 \*这是星号，不是斜体\*
+```
+
+## 12. 折叠框
+
+通过details创建一个可展开和折叠的内容区域，默认是折叠状态，如果需要默认展开在details上添加open属性即可
+
+这个不是markdown语法，本质上是html。例子：
+
+``` markdown
+<details>
+<summary>点击展开更多信息</summary>
+  
+`console.log('Hi 你好!')`
+  
+</details>
 ```

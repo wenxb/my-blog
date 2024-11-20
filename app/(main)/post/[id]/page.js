@@ -8,7 +8,7 @@ import useConfig from "@/lib/hook/useConfig";
 import BottomBlock from "@/components/page/post/BottomBlock";
 import SideRightWrap from "@/components/sideRight/SideRightWrap";
 import MarkdownRenderer from "@/components/common/MarkdownRenderer";
-import TocExtractor from "@/components/common/TocExtractor";
+import PostToc from "@/components/common/PostToc";
 
 async function getPostFromParams(params) {
     let id = params.id
@@ -23,6 +23,7 @@ async function getPostFromParams(params) {
 
 export async function generateMetadata({params}) {
     const post = await getPostFromParams(params)
+    const config = useConfig()
 
     if (!post) {
         return {}
@@ -31,6 +32,11 @@ export async function generateMetadata({params}) {
     return {
         title: post.title,
         description: post.desc,
+        openGraph:{
+            title: post.title,
+            description: post.desc,
+            url: `${config.site.url}/post/${post.id}`,
+        }
     }
 }
 
@@ -69,7 +75,7 @@ export default async function PostPage({params}) {
                         )}
                     </div>
                 </PageHeader>
-                <article
+                <article id={'article-content'}
                     className="py-6 px-6 flex-grow prose prose-zinc prose-pre:p-0 prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
                     <MarkdownRenderer md={post.body.raw}/>
                 </article>
@@ -98,7 +104,7 @@ export default async function PostPage({params}) {
             </MainColumn>
             <SideRightWrap stickyWrap={
                 <>
-                    <TocExtractor md={post.body.raw}/>
+                    <PostToc/>
                 </>
             }/>
         </>

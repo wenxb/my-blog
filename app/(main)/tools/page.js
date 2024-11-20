@@ -3,6 +3,8 @@ import PageHeader from "@/components/module/PageHeader";
 import {allYmls} from 'contentlayer/generated'
 import {Avatar, AvatarImage} from "@/components/ui/avatar";
 import Link from "next/link";
+import useConfig from "@/lib/hook/useConfig";
+import {notFound} from "next/navigation";
 
 const ToolItem = ({tool, parentPath}) => {
     return (
@@ -21,8 +23,17 @@ const ToolItem = ({tool, parentPath}) => {
     )
 }
 
+export const metadata = {
+    title: '工具'
+}
+
 const Page = () => {
     const tools = allYmls.filter(t => t._raw.flattenedPath === 'data/tools')
+    const config = useConfig();
+
+    if (!config.page.tools.enable) {
+        notFound()
+    }
 
     return (
         <MainColumn>

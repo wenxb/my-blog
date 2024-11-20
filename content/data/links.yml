@@ -1,0 +1,23 @@
+data:
+  - group_title: 友情链接
+    group_desc: 我的好朋友们
+    links:
+      - title: Github
+        desc:
+        link: https://github.com
+        icon: https://github.com/wenxb.png
+      - title: X
+        desc:
+        link: https://x.com
+        icon: https://github.com/wenxb.png
+  - group_title: 社交网站
+    group_desc: 一些社交网站
+    links:
+      - title: Github
+        desc:
+        link: https://github.com
+        icon: https://github.com/wenxb.png
+      - title: X
+        desc:
+        link: https://x.com
+        icon: https://github.com/wenxb.png
