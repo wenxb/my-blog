@@ -6,6 +6,7 @@ import {Toaster} from "@/components/ui/toaster";
 import ReduxProvider from "@/lib/ReduxProvider";
 import {SWRProvider} from "@/lib/swr-provider";
 import PersistProvider from "@/lib/PersistProvider";
+import {Analytics} from "@/components/module/analytics";
 
 export async function generateMetadata() {
     const config = useConfig()
@@ -46,6 +47,7 @@ export default function RootLayout({children}) {
                 </PersistProvider>
             </ReduxProvider>
         </SWRProvider>
+        <Analytics/>
         </body>
         </html>
     );
