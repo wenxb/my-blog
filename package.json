@@ -45,6 +45,7 @@
     "react-dom": "18.3.1",
     "react-redux": "^9.1.2",
     "react-type-animation": "^3.2.0",
+    "react-use": "^17.5.1",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-filter": "^0.0.22",
     "rehype-highlight": "^7.0.1",

@@ -53,7 +53,9 @@ export default async function PostPage({params}) {
     return (
         <>
             <MainColumn>
-                <PageHeader title={post.title} footer={(
+                <PageHeader scrollShowBarSlot barSlot={(
+                    <div className={'font-semibold text-xl line-clamp-1'}>{post.title}</div>
+                )} title={post.title} footer={(
                     <BottomBlock config={config} id={post.id}/>
                 )}>
                     <div className={'flex items-center text-foreground/60'}>

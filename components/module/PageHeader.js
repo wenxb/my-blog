@@ -3,9 +3,17 @@ import {Button} from "@/components/ui/button";
 import {ArrowLeftIcon} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useRouter} from "next/navigation";
+import {useWindowScroll} from "react-use";
 
-const PageHeader = ({title, barSlot, secondary, children, hideBar, footer, hideBack}) => {
+const PageHeader = ({title, barSlot, scrollShowBarSlot = false, secondary, children, hideBar, footer, hideBack}) => {
     const router = useRouter();
+    const {y} = useWindowScroll();
+
+    const scrollToTop = () => {
+        window?.scrollTo({
+            top: 0,
+        });
+    };
 
     return (
         <>
@@ -19,7 +27,14 @@ const PageHeader = ({title, barSlot, secondary, children, hideBar, footer, hideB
                             </Button>
                         </div>
                     )}
-                    {barSlot}
+                    {!scrollShowBarSlot ? barSlot : (
+                        <div onClick={scrollToTop} className={cn(
+                            'flex flex-col justify-center opacity-0 transition-opacity cursor-pointer pointer-events-none select-none',
+                            y >= 60 && 'opacity-100 pointer-events-auto select-auto'
+                        )}>
+                            {barSlot}
+                        </div>
+                    )}
                 </div>
             )}
 

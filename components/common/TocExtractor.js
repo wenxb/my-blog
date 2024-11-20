@@ -40,7 +40,9 @@ const TocExtractor = ({md}) => {
     return (result.props?.children && (
             <div className={'border rounded-xl overflow-hidden'}>
                 <div className={'px-3 pt-3 text-xl pb-2 font-bold'}>目录</div>
-                {result}
+                <div className={'w-full max-h-[400px] overflow-y-auto'}>
+                    {result}
+                </div>
             </div>
         ))
 }
