@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "@/components/md/Link";
 import {unified} from 'unified';
 import remarkParse from 'remark-parse';
@@ -16,7 +15,6 @@ const production = {
     jsx: prod.jsx,
     jsxs: prod.jsxs,
     components: {
-        img: Image,
         a: Link,
     },
 }
