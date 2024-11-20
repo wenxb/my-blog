@@ -35,7 +35,8 @@ const SideLyric = () => {
                         maxHeight: "100%",
                         contain: "paint layout",
                         mixBlendMode: "plus-lighter",
-                    }} playing={isPlaying} currentTime={Math.round(currentTime)} enableSpring={false} enableScale={false}
+                    }} playing={isPlaying} currentTime={Math.round(currentTime)} enableSpring={false}
+                                 enableScale={false}
                                  lyricLines={lyricLines} alignAnchor="center"/>
                 </NoSsr>
             </div>
