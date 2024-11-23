@@ -6,7 +6,7 @@ const Page = () => {
     return (
         <>
             <MainColumn>
-                <PageHeader title={"导航"}/>
+                <PageHeader hideBack title={"导航"}/>
             </MainColumn>
         </>
     );

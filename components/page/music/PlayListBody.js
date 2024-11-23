@@ -7,7 +7,7 @@ const PlayListBody = ({loading, songs, count, isLoadingMore,onLoadMore}) => {
         <div className={'pb-10'}>
             {!songs || loading ? (<LoadingBox className={'min-h-28'}/>) : (songs && (<MusicList data={songs}/>))}
             <div className={'flex justify-center mt-6'}>
-                {songs?.length < count && (
+                {(songs?.length < count && !loading) && (
                     <Button disabled={isLoadingMore}
                             onClick={onLoadMore}>{isLoadingMore ? '加载中...' : '加载更多'}</Button>
                 )}

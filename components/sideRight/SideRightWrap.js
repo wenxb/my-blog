@@ -8,9 +8,9 @@ const SideRightWrap = ({children, stickyWrap, showMusic = true}) => {
             style={{
                 width: 'var(--side-right-width)',
             }}
-            className={'ml-4'}
+            className={'ml-4 gap-3'}
         >
-            <div className={'sticky top-3'}>
+            <div className={'sticky top-3 flex flex-col gap-3'}>
                 {showMusic && <MusicControl/>}
                 {stickyWrap}
             </div>

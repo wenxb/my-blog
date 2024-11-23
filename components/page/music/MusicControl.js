@@ -58,7 +58,7 @@ const MusicControl = () => {
 
     return (
         playSong?.id && (
-            <div className={'relative border w-full rounded-2xl overflow-hidden p-4'}>
+            <div className={'relative border w-full rounded-xl overflow-hidden p-4'}>
                 <LoadingBox className={cn(
                     'z-[5] absolute inset-0 bg-background opacity-100 invisible pointer-events-none',
                     isLoading && 'opacity-100 visible pointer-events-auto'
@@ -73,7 +73,7 @@ const MusicControl = () => {
                         <div className={'ml-2.5'}>
                             <div className={'font-semibold text-lg line-clamp-1'}>{playSong.name}</div>
                             {playSong.avatar && (
-                                <div className={'text-gray-500 line-clamp-1'}>
+                                <div className={'text-foreground/60 line-clamp-1'}>
                                     {playSong.avatar.map((avatar, i) => (
                                         <span key={avatar.id || i}
                                               className={"not-last-child:after:content-['/'] not-last-child:after:mx-1"}>{avatar.name}</span>
@@ -125,17 +125,17 @@ const MusicControl = () => {
                         </div>
                     </div>
                     <div className={'flex items-center w-full mt-3 justify-between'}>
-                            <span className={'text-2xl text-gray-500'}>
-                    <VolumeDownFill/>
-                </span>
+                        <span className={'text-2xl text-foreground/50'}>
+                            <VolumeDownFill/>
+                        </span>
                         <div className={'mx-3 flex-grow'}>
                             <Slider value={[musicState.playVolume]} onValueChange={value => setVolume(value[0])}
                                     max={1}
                                     min={0} step={0.01}/>
                         </div>
-                        <span className={'text-2xl text-gray-500'}>
-                    <VolumeUpFill/>
-                </span>
+                        <span className={'text-2xl text-foreground/50'}>
+                            <VolumeUpFill/>
+                        </span>
                     </div>
                 </div>
             </div>

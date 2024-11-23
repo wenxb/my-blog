@@ -1,24 +1,24 @@
-y-blog是通过 [nextjs](https://nextjs.org/) 开发的个人博客网站，使用markdown文件来书写文章
+y-blog是通过 [nextjs](https://nextjs.org/) 开发的个人博客网站，使用markdown来书写文章
 
 如果你还不会Markdown语法，查看[Markdown 速成指南](Markdown-Use.md)
 
 ## 开始
 
 1. 克隆此项目 `git clone xxx`
-2. 复制`config.example.yml`文件，重命名为`config.yml`，修改各个参数，配置文件有详细的注释
+2. 复制`config.example.yml`配置文件，将其重命名为`config.yml`
 3. 本地预览（可选）
 4. [部署](#部署)
 
 ## 本地预览
-
 环境要求：[Nodejs >= 18.18](https://nodejs.org/)
 
-如果需要使用音乐功能，需进行以下配置：
+如果需要使用音乐功能，需在本地配置环境变量：
 
-首次运行下面的命令后，会在`keys/`目录下生成`public.pem`（公钥）和`private.pem`（私钥）两个文件，将根目录`.env.example`文件重命名为
-`.env`
+> 首次运行下面的命令后，会在`keys/`目录下生成`public.pem`（公钥）和`private.pem`（私钥）两个文件
 
-复制**公钥**文件的内容替换到`NEXT_PUBLIC_PUB_KEY`， 复制**私钥**文件的内容替换到`PRIVATE_KEY`
+**配置环境变量**：将根目录`.env.example`文件重命名为`.env`，复制`public.pem`文件的内容替换到`NEXT_PUBLIC_PUB_KEY`， 复制`private.pem`文件的内容替换到`PRIVATE_KEY`即可。
+
+运行下面其中一条命令，用浏览器打开 [http://localhost:10001](http://localhost:10001)
 
 ```bash
 npm run dev
@@ -30,31 +30,28 @@ pnpm dev
 bun dev
 ```
 
-运行上面其中一条命令，用浏览器打开 [http://localhost:10001](http://localhost:10001)
-
 ## 如何写作
 
-### 创建文章
-
+### 如何新建文章
 在项目的`content/post`目录下新建一个`.md`结尾的文件，比如：`我的博客文章.md`
 
-书写方法和markdown并无区别
+> 嵌套的文件夹：`content/post`目录下可以嵌套多层文件夹，不会有任何变化影响。但不要使用`test`作为文件夹名称，test目录部署时不会包含进去
 
 ### Front Matter
+Front Matter用于表示文章的标题、分类、发布日期等等，在文件顶部使用两个---包裹
 
-Front Matter用于表示文章的信息、标题、分类、id等等，在文件顶部使用两个---包裹
-
-**嵌套的文件夹**：`content/post`目录下可以嵌套多层文件夹，不会对文章有任何影响，但尽量不要使用`test`作为文件夹名称，test仅作为本地预览时使用
-
-| 字段                  | 说明                     | 示例                                                        |
-|---------------------|------------------------|-----------------------------------------------------------|
-| id                  | 文章的唯一id，由程序自动生成，无需手动指定 | -                                                         |
-| title               | 文章的标题                  | 假如生活欺骗了你                                                  |
-| desc                | 文章的摘要                  | 那就假装什么也没发生                                                |
-| category/categories | 文章分类                   | # 注意： - 前后都有一个空格<br/>category: <br/> - 分类字段1<br/> - 分类字段2 |
-| date                | 文章发布时间，不填自动生成当前时间      | 2022-11-11T10:22:22+08:00 或者  2022-12-12                  |
-| draft               | 是否为草稿                  | true或者false                                               |
+| 字段                  | 说明                        | 类型     |
+|---------------------|---------------------------|--------|
+| id                  | 文章的唯一id，自动生成，无需手动指定，但必须唯一 | string |
+| title               | 文章的标题（必填）                 | string |
+| desc/description    | 文章的摘要                     | string |
+| category/categories | 文章分类                      | array  |
+| date                | 文章发布时间，默认根据预览或部署时的时间生成    | date   |
+| draft               | 是否为草稿                     | bool   |
+| keywords            | 文章的关键词，用于SEO，默认为文章分类      | array  |
 
 ## 部署
 
-如果需要使用音乐功能，需配置环境变量公钥：`NEXT_PUBLIC_PUB_KEY`和私钥`PRIVATE_KEY`，用于音乐接口的加密
+如果需要使用音乐功能，需配置环境变量`NEXT_PUBLIC_PUB_KEY`（公钥）和`PRIVATE_KEY`（私钥），用于音乐接口的加密，获取密钥方法参考上面**本地预览**
+
+### 部署到Vercel

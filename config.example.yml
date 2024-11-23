@@ -2,21 +2,25 @@
 author:
   # 作者名
   name: Youngwen
-  # 头像 https://xxx.com/xxx.png
-  avatar: https://github.com/shadcn.png
+  # 头像
+  avatar: https://github.com/wenxb.png
+  # 社交链接 支持 github/bilibili/twitter/facebook/mail
+  social:
+    github: https://github.com/wenxb
+    mail: mailto:i@youngwen.com
 
 # 网站配置
 site:
-  # 网站网址 https://myblog.com
+  # 网站网址
   url: "http://localhost:10001"
   # 网站标题
-  title: xxx
+  title: 我的博客
   # 网站描述
-  description:
-  # 网站关键词，用空格隔开
+  description: ""
+  # 网站关键词，多个用空格隔开
   keywords: ""
   # 默认主题模式 暗黑dark/亮色light/自动system
-  themeMode: light
+  themeMode: system
   # 备案号
   icp: "萌ICP备 12345678号"
 
@@ -33,3 +37,23 @@ page:
       api: 'https://v1.hitokoto.cn?c=c&encode=json'
       text:
         - "人类的悲欢并不相通，我只是觉得他们吵闹"
+  # 工具页面
+  tools:
+    # 是否启用工具页面
+    enable: true
+
+# 评论配置
+comment:
+  # 是否开启评论
+  enable: true
+  # 选择使用那种评论系统，目前支持twikoo、valine
+  type: twikoo
+  # https://twikoo.js.org
+  twikoo:
+    envId: xxx
+    lang:
+    region:
+  # https://valine.js.org/
+  valine:
+    appId: 替换为appId,
+    appKey: 替换为appKey

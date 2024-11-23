@@ -9,6 +9,8 @@ import rehypeHighlightLines from "rehype-highlight-code-lines";
 import 'highlight.js/styles/github-dark.min.css';
 import * as prod from 'react/jsx-runtime'
 import rehypeSlug from "rehype-slug";
+import rehypeRaw from "rehype-raw"
+import rehypeMathjax from 'rehype-mathjax'
 
 const production = {
     Fragment: prod.Fragment,
@@ -23,7 +25,9 @@ const MarkdownRenderer = ({md}) => {
     const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)
-        .use(remarkRehype) // 转换为 HTML 格式的 AST
+        .use(remarkRehype, {allowDangerousHtml: true})
+        .use(rehypeRaw)
+        .use(rehypeMathjax)
         .use(rehypeSlug)
         .use(rehypeHighlight)
         .use(rehypeHighlightLines,{
