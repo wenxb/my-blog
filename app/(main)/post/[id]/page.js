@@ -9,6 +9,11 @@ import BottomBlock from "@/components/page/post/BottomBlock";
 import SideRightWrap from "@/components/sideRight/SideRightWrap";
 import MarkdownRenderer from "@/components/common/MarkdownRenderer";
 import PostToc from "@/components/common/PostToc";
+import Twikoo from "@/components/module/comment/Twikoo";
+import NoSsr from "@/components/common/NoSsr";
+import ValineCom from "@/components/module/comment/Valine";
+import DynamicScript from "@/components/common/DynamicScript";
+import PostPagePv from "@/components/page/post/PostPagePv";
 
 async function getPostFromParams(params) {
     let id = params.id
@@ -29,10 +34,19 @@ export async function generateMetadata({params}) {
         return {}
     }
 
+    let keywords = post?.keywords || []
+
+    if (!keywords?.length) {
+        if (post?.category) {
+            keywords = post.category.join(' ')
+        }
+    }
+
     return {
         title: post.title,
         description: post.desc,
-        openGraph:{
+        keywords,
+        openGraph: {
             title: post.title,
             description: post.desc,
             url: `${config.site.url}/post/${post.id}`,
@@ -51,6 +65,9 @@ export function generateStaticParams() {
 export default async function PostPage({params}) {
     const post = await getPostFromParams(params)
     const config = useConfig()
+    const {envId, lang, region} = config.comment.twikoo
+    const {appId, appKey, lang: valineLang} = config.comment.valine
+    const commentType = config.comment.type
 
     if (!post) {
         notFound()
@@ -73,18 +90,20 @@ export default async function PostPage({params}) {
                                       key={index}>{category}</Link>
                             ))
                         )}
+                        <NoSsr>
+                            <PostPagePv/>
+                        </NoSsr>
                     </div>
                 </PageHeader>
                 <article id={'article-content'}
-                    className="py-6 px-6 flex-grow prose prose-zinc prose-pre:p-0 prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert">
+                         className="p-6 article-content">
                     <MarkdownRenderer md={post.body.raw}/>
                 </article>
-                <div className={'border-t flex flex-col gap-2 p-6 mt-6'}>
-                    <div><span className={'text-foreground/60'}>标题：</span>{post.title}</div>
-                    <div><span className={'text-foreground/60'}>作者：</span>{config.author.name}</div>
-                    <div>
-                        <span className={'text-foreground/60'}>链接：</span>
-                        <a className={'text-blue-500'}
+                <div className={'border-t flex flex-col p-6 mt-6'}>
+                    <div className={'text-base'}>{post.title}</div>
+                    <div className={'text-foreground/60'}>{config.author.name}</div>
+                    <div className={'my-2'}>
+                        <a className={'text-blue-500 border-b border-transparent hover:border-blue-500'}
                            target='_blank'
                            href={`${config.site.url}/post/${post.id}`}
                         >
@@ -94,19 +113,30 @@ export default async function PostPage({params}) {
                         </a>
                     </div>
                     <div>
-                        <span className={'text-foreground/60'}>版权：</span>
                         本站文章除特别声明外，均采用
-                        <a className={'text-blue-500'} target='_blank'
+                        <a className={'text-blue-500 border-b border-transparent hover:border-blue-500'} target='_blank'
                            href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a>
                         许可协议。转载请注明出处！
                     </div>
                 </div>
+
+                {config.comment?.enable && (
+                    <NoSsr>
+                        <div className={'mt-3 border-t px-4 py-3'}>
+                            {commentType === 'twikoo' &&
+                                <Twikoo envId={envId || ''} region={region || ''} lang={lang || 'zh-CN'}/>}
+                            {commentType === 'valine' &&
+                                <ValineCom lang={valineLang || 'zh-CN'} appId={appId} appKey={appKey}/>}
+                        </div>
+                    </NoSsr>
+                )}
             </MainColumn>
             <SideRightWrap stickyWrap={
                 <>
                     <PostToc/>
                 </>
             }/>
+            <DynamicScript src={'//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'}/>
         </>
     )
 }

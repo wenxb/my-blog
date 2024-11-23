@@ -44,7 +44,7 @@ const PageHeader = ({title, barSlot, scrollShowBarSlot = false, secondary, child
                         'relative flex flex-col justify-center items-center py-6 px-4',
                         (hideBar || !footer) && 'min-h-[170px]'
                     )}>
-                        {title && <div className={'text-2xl mb-3'}>{title}</div>}
+                        {title && <div className={'text-2xl font-semibold mb-3'}>{title}</div>}
                         {secondary && <div className={'text-foreground/60'}>{secondary}</div>}
                         {children}
                     </div>

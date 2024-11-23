@@ -132,7 +132,7 @@ Markdown 中的特殊字符（如 *, _, # 等）可以用反斜杠 \ 进行转�
 
 通过details创建一个可展开和折叠的内容区域，默认是折叠状态，如果需要默认展开在details上添加open属性即可
 
-这个不是markdown语法，本质上是html。例子：
+实质上不是markdown语法，是html，例如：
 
 ``` markdown
 <details>

@@ -93,3 +93,17 @@
   width: 1em;
   height: 1em;
 }
+
+.article-content {
+  @apply min-h-52 flex-grow prose prose-zinc prose-pre:p-0 text-base prose-code:block prose-code:overflow-x-auto prose-code:p-[1em] prose-pre:bg-[#0d1117] prose-blue max-w-full dark:prose-invert;
+  blockquote {
+    font-style: normal;
+    @apply text-gray-500 dark:text-gray-400 font-normal;
+
+    p {
+      &:before, &:after {
+        display: none;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import fs from "node:fs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
     webpack: (config, {isServer, dev}) => {
         config.experiments = Object.assign(config.experiments || {}, {

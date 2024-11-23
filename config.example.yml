@@ -41,3 +41,19 @@ page:
   tools:
     # 是否启用工具页面
     enable: true
+
+# 评论配置
+comment:
+  # 是否开启评论
+  enable: true
+  # 选择使用那种评论系统，目前支持twikoo、valine
+  type: twikoo
+  # https://twikoo.js.org
+  twikoo:
+    envId: xxx
+    lang:
+    region:
+  # https://valine.js.org/
+  valine:
+    appId: 替换为appId,
+    appKey: 替换为appKey

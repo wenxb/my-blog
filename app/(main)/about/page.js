@@ -72,7 +72,7 @@ const Page = () => {
                     </div>
                 </div>
             </PageHeader>
-            <article className={'prose max-w-full prose-blue p-6 dark:prose-invert'}>
+            <article className={'article-content p-6'}>
                 <MarkdownRenderer md={page.body.raw}/>
             </article>
         </MainColumn>
