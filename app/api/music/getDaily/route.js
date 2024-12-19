@@ -2,6 +2,8 @@ import {recommend_songs} from "@/lib/music/api/recommend";
 import {getCoverUrl} from "@/lib/music/util";
 import {formatData} from "@/lib/music/formatData";
 
+export const revalidate = 0
+
 export async function GET() {
     const dayRes = await recommend_songs()
     const daySongs = dayRes?.body.data?.dailySongs
